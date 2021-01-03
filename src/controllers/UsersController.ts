@@ -39,16 +39,15 @@ export default {
       email,
       password,
     }
-    console.log(data)
-    // const schema = Yup.object().shape({
-    //   name: Yup.string().required(),
-    //   email: Yup.string().required(),
-    //   password: Yup.string().required(),
-    // })
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string().required(),
+      password: Yup.string().required(),
+    })
 
-    // await schema.validate(data, {
-    //   abortEarly: false,
-    // });
+    await schema.validate(data, {
+      abortEarly: false,
+    });
   
     const user = usersRepository.create(data);
   
