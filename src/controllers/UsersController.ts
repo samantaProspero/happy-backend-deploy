@@ -8,14 +8,15 @@ import User from '../models/User';
 
 export default {
   // async index(request: Request, response: Response){
-
-  //   const usersRepository = getRepository(User);
-  //   const users = await usersRepository.find({
-  //     relations: ['images']
-  //   })
-
-  //   return response.json(userView.render(users));
+    
+  //   return response.send({ userId: request.userId});
   // },
+  async index(request: Request, response: Response){
+    
+    const usersRepository = getRepository(User);
+    const users = await usersRepository.find();
+    return response.json({users});
+  },
   async show(request: Request, response: Response){
     const {id} = request.params;
 
@@ -33,6 +34,12 @@ export default {
     } = request.body;
   
     const usersRepository = getRepository(User);
+
+    const userExists = await usersRepository.findOne({ where: { email}})
+
+    if(userExists){
+      return response.sendStatus(409)
+    }
 
     const data = {
       name,
