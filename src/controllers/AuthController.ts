@@ -17,18 +17,19 @@ export default {
     } = request.body;
   
 
-    const user = await usersRepository.findOne({ where: { email}})
+    const user = await usersRepository.findOne({ where: { email }})
 
     if(!user){
       return response.sendStatus(401)
     }
-    const isValidPassword = bcrypt.compare(password, user.password)
+    const isValidPassword = await bcrypt.compare(password, user.password)
 
     if(!isValidPassword){
       return response.sendStatus(401)
     }
     // Criar um outro secret, deixá-lo em .env e substituir na palavra secret abaixo 
     const token= jwt.sign({ id: user.id}, process.env.SECRET_TOKEN, {expiresIn: '1d'})
+    
 
     // const schema = Yup.object().shape({
     //   email: Yup.string().required(),

@@ -14,9 +14,13 @@ const upload = multer(uploadConfig);
 routes.get('/orphanages', OrphanagesController.index);
 routes.get('/orphanages/:id', OrphanagesController.show);
 routes.post('/orphanages', upload.array('images') ,OrphanagesController.create);
+
 routes.post('/auth', AuthController.authenticate);
-routes.get('/users', authMiddleware, UsersController.index);
+
 routes.get('/users/:id', authMiddleware, UsersController.show);
+
+routes.get('/users', UsersController.index);
 routes.post('/users', UsersController.create);
+
 
 export default routes;
