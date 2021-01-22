@@ -4,7 +4,4 @@ yarn.lock
 .env
 dist
 
-uploads/*
-!uploads/gitkeep
-
 .history
