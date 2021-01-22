@@ -79,5 +79,17 @@ export default {
     await orphanagesRepository.save(orphanage);
   
     return response.status(201).json(orphanage);
-  }
+  },
+  async delete(request: Request, response: Response){
+    const {id} = request.params;
+
+    const orphanagesRepository = getRepository(Orphanage);
+    const orphanage = await orphanagesRepository.findOneOrFail(id, {
+      relations: ['images']
+    });
+    await orphanagesRepository.remove(orphanage)
+
+    return response.status(201).json(orphanage);
+  },
+
 }
